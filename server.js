@@ -1,12 +1,15 @@
 require('dotenv').config() 
 
 const express = require('express');
+const bodyParser = require('body-parser');
 const client = require('twilio')(
         process.env.TWILIO_ACCOUNT_SID,
         process.env.TWILIO_AUTH_TOKEN
         );
-
+const MessagingResponse = require('twilio').twiml.MessagingResponse;
+        
 const app = express()
+app.use(bodyParser.urlencoded({ extended: true })); 
 
 
 app.post('/sendSMS', (req, res) => {
@@ -19,6 +22,20 @@ app.post('/sendSMS', (req, res) => {
     });
 
 })
+
+
+app.post('/sms', function(req, res) {
+    console.log(req.body.Body)
+    const twiml = new MessagingResponse();
+    const msg = twiml.message('Check out this sweet owl!');
+    
+     // Add a picture message.
+     msg.media('https://demo.twilio.com/owl.png');
+    
+     res.writeHead(200, {'Content-Type': 'text/xml'});
+     res.end(twiml.toString());
+});
+
 
 
 app.listen(4040, () => console.log('listening on port 4040'))

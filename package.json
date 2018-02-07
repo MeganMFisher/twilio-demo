@@ -5,6 +5,7 @@
   "name": "server.js",
   "version": "",
   "dependencies": {
+    "body-parser": "^1.18.2",
     "dotenv": "^5.0.0",
     "express": "^4.16.2",
     "twilio": "^3.11.2"

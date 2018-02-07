@@ -3,7 +3,7 @@
 ## Install the following: 
 
 ```
-npm i express twilio dotenv
+npm i express twilio dotenv body-parser
 ```
 
 ## Setup your initial node application and create your .env and .gitignore files
@@ -12,8 +12,11 @@ npm i express twilio dotenv
 require('dotenv').config() 
 
 const express = require('express');
+const bodyParser = require('body-parser');
+
 
 const app = express()
+app.use(bodyParser.urlencoded({ extended: true })); 
 
 
 app.listen(4040, () => console.log('listening on port 4040'))
@@ -70,9 +73,48 @@ app.post('/sendSMS', (req, res) => {
 Its important to note that with the free number you are only able to send text messages to those who have verified they are willing to receive them.
 
 
+## Receiving messages
+
+Download ngrok
+
+https://ngrok.com/download
+
+Upzip it. You may need to allow your computer to unzip it in the security settings. Put the ngrok file into your project and run the following from your command line
+	
+```
+./ngrok http 4040
+```
+
+Your terminal should look like this: 
+
+![ngrok](./ngrokPic.jpeg)
+
+Now take the forwarding address and add it to your Twilio phone number
+
+![twilio change](./changeURL.jpeg)
+
+You are now ready to receive a text message to your new Twilio number.
+
+
+## Add your response endpoint
+
+```
+app.post('/sms', function(req, res) {
+    var twilio = require('twilio');
+    var twiml = new twilio.TwimlResponse();
+     twiml.message('The Robots are coming! Head for the hills!');
+    res.writeHead(200, {'Content-Type': 'text/xml'});
+    res.end(twiml.toString());
+});
+```
+
+The message that was sent back to you is accessed by using req.body.Body.
+
 
 ## Helpful Resources
 
 https://www.twilio.com/blog/2017/10/chat-interfaces-react-javascript.html
 
 https://www.twilio.com/docs/guides/how-to-send-sms-messages-in-node-js#send-a-message-during-a-phone-call-voice-twiml
+
+ngrok dashboard:  http://127.0.0.1:4040
