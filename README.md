@@ -36,7 +36,7 @@ Get your twilio phone number. Click on manage numbers. Get your number. They wil
 
 ```
 TWILIO_PHONE_NUMBER=your new twilio phone number
-TWILIO_VERIFIED_PHONE_NUMBER=the verifiend twilio phone number
+TWILIO_VERIFIED_PHONE_NUMBER=the verified twilio phone number
 ```
 
 ## Add twilio to your node
