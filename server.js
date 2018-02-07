@@ -12,11 +12,10 @@ const app = express()
 app.post('/sendSMS', (req, res) => {
     client.messages.create({
         from: process.env.TWILIO_PHONE_NUMBER,
-        to: '8017224693',
-        body: "You just sent an SMS from Node.js using Twilio!"
-    }).then((messsage) => {
-        console.log(message.sid)
-        res.send(message.sid)
+        to: process.env.TWILIO_VERIFIED_PHONE_NUMBER,
+        body: "Testing... Testing... I'm sending a text from my node server. Did it work?"
+    }).then((message) => {
+        res.send('Message Sent')
     });
 
 })
