@@ -6,7 +6,7 @@
 npm i express twilio dotenv
 ```
 
-## Setup your initial node application
+## Setup your initial node application and create your .env and .gitignore files
 
 ```
 require('dotenv').config() 
@@ -19,6 +19,8 @@ const app = express()
 app.listen(4040, () => console.log('listening on port 4040'))
 
 ```
+
+Be sure to add your .env and node_modules to your .gitignore.
 
 
 ## Sign up on Twilio
@@ -35,4 +37,17 @@ Get your twilio phone number. Click on manage numbers. Get your number. They wil
 ```
 TWILIO_PHONE_NUMBER=your new twilio phone number
 ```
+
+# Add twilio to your node
+
+Create a constant near the top of your server called client and require `twilio`. Add the Twilio Account SID and Twilio Auth Token as the parameters to the invocation of twilio. 
+
+```
+const client = require('twilio')(
+        process.env.TWILIO_ACCOUNT_SID,
+        process.env.TWILIO_AUTH_TOKEN
+        );
+```
+
+## Create the endpoint to send the SMS
 
