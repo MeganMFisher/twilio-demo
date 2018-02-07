@@ -99,12 +99,17 @@ You are now ready to receive a text message to your new Twilio number.
 ## Add your response endpoint
 
 ```
+const MessagingResponse = require('twilio').twiml.MessagingResponse;
+
 app.post('/sms', function(req, res) {
-    var twilio = require('twilio');
-    var twiml = new twilio.TwimlResponse();
-     twiml.message('The Robots are coming! Head for the hills!');
-    res.writeHead(200, {'Content-Type': 'text/xml'});
-    res.end(twiml.toString());
+    const twiml = new MessagingResponse();
+    const msg = twiml.message('Check out this sweet owl!');
+    
+     // Add a picture message.
+     msg.media('https://demo.twilio.com/owl.png');
+    
+     res.writeHead(200, {'Content-Type': 'text/xml'});
+     res.end(twiml.toString());
 });
 ```
 

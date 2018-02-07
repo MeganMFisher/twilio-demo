@@ -27,10 +27,10 @@ app.post('/sendSMS', (req, res) => {
 app.post('/sms', function(req, res) {
     console.log(req.body.Body)
     const twiml = new MessagingResponse();
-    const msg = twiml.message('Check out this sweet owl!');
+    const msg = twiml.message('The robots are coming run for the hills!');
     
      // Add a picture message.
-     msg.media('https://demo.twilio.com/owl.png');
+     msg.media('https://image.flaticon.com/icons/png/128/77/77831.png');
     
      res.writeHead(200, {'Content-Type': 'text/xml'});
      res.end(twiml.toString());
